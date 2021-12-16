@@ -32,13 +32,13 @@ function setup() {
   
   createCanvas(windowWidth,windowHeight);
 
-  //adding the background image
+  // Agregando las imagenes de fondo
   bg = createSprite(displayWidth/2-20,displayHeight/2-40,20,20)
 bg.addImage(bgImg)
 bg.scale = 1.1
   
 
-//creating the player sprite
+// Creando el sprite del jugador
 player = createSprite(displayWidth-1150, displayHeight-300, 50, 50);
  player.addImage(shooterImg)
    player.scale = 0.3
@@ -46,7 +46,7 @@ player = createSprite(displayWidth-1150, displayHeight-300, 50, 50);
    player.setCollider("rectangle",0,0,300,300)
 
 
-   //creating sprites to depict lives remaining
+   // Creando sprites para representar la vida restante 
    heart1 = createSprite(displayWidth-150,40,20,20)
    heart1.visible = false
     heart1.addImage("heart1",heart1Img)
@@ -62,7 +62,7 @@ player = createSprite(displayWidth-1150, displayHeight-300, 50, 50);
     heart3.scale = 0.4
    
 
-    //creating groups for zombies and bullets
+    // Creando los grupos para los zombis y las balas
     bulletGroup = new Group()
     zombieGroup = new Group()
 
@@ -76,7 +76,7 @@ function draw() {
 
 if(gameState === "fight"){
 
-  //moving the player up and down and making the game mobile compatible using touches
+  // Mover al jugador arriba y abajo. Haciendo el juego compatible con entrada táctil
 if(keyDown("UP_ARROW")||touches.length>0){
   player.y = player.y-30
 }
@@ -85,7 +85,7 @@ if(keyDown("DOWN_ARROW")||touches.length>0){
 }
 
 
-//release bullets and change the image of shooter to shooting position when space is pressed
+// Liberar balas y cambiar la imagen del tirador a posición de tiro cuando se presiona la barra espaciadora.
 if(keyWentDown("space")){
   bullet = createSprite(displayWidth-1150,player.y-30,20,10)
   bullet.velocityX = 20
@@ -97,18 +97,18 @@ if(keyWentDown("space")){
   bullets = bullets-1
 }
 
-//player goes back to original standing image once we stop pressing the space bar
+// El jugador regresa a la posición original una vez qeu se deja de presionar la barra espaciadora 
 else if(keyWentUp("space")){
   player.addImage(shooterImg)
 }
 
-//go to gameState "bullet" when player runs out of bullets
+// Inicia el estado de juego (gameState) "bullet" cuando el jugador se queda sin balas. 
 if(bullets==0){
   gameState = "bullet"
     
 }
 
-//destroy the zombie when bullet touches it
+// Destruye al zombi cuando una bala lo toca
 if(zombieGroup.isTouching(bulletGroup)){
   for(var i=0;i<zombieGroup.length;i++){     
       
@@ -121,7 +121,7 @@ if(zombieGroup.isTouching(bulletGroup)){
   }
 }
 
-//destroy zombie when player touches it
+// Destruye al zombi cuando el jugador lo toca 
 if(zombieGroup.isTouching(player)){
 
  for(var i=0;i<zombieGroup.length;i++){     
@@ -133,13 +133,13 @@ if(zombieGroup.isTouching(player)){
  }
 }
 
-//calling the function to spawn zombies
+// Llama a la función para generar zombis
 enemy();
 }
 
 drawSprites();
 
-//destroy zombie and player and display a message in gameState "lost"
+// Destruye al jugador y al zombi. Muestra el mensaje en el estado de juego "lost"
 if(gameState == "lost"){
   
   textSize(100)
@@ -150,7 +150,7 @@ if(gameState == "lost"){
 
 }
 
-//destroy zombie and player and display a message in gameState "won"
+// Destruye al jugador y al zombi. Muestra el mensaje en el estado de juego "won"
 else if(gameState == "won"){
  
   textSize(100)
@@ -161,7 +161,7 @@ else if(gameState == "won"){
 
 }
 
-//destroy zombie, player and bullets and display a message in gameState "bullet"
+// Destruye al jugador, al zombi y a las balas. Muestra el mensaje en el estado de juego "bullet"
 else if(gameState == "bullet"){
  
   textSize(50)
@@ -176,11 +176,11 @@ else if(gameState == "bullet"){
 }
 
 
-//creating function to spawn zombies
+// Creando la función para generar zombis
 function enemy(){
   if(frameCount%50===0){
 
-    //giving random x and y positions for zombie to appear
+    // Da posiciones aleatorias "x" e "y" para que aparezca el zombi
     zombie = createSprite(random(500,1100),random(100,500),40,40)
 
     zombie.addImage(zombieImg)
