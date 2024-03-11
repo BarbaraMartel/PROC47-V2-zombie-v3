@@ -87,14 +87,11 @@ if(keyDown("DOWN_ARROW")||touches.length>0){
 
 // Liberar balas y cambiar la imagen del tirador a posición de tiro cuando se presiona la barra espaciadora.
 if(keyWentDown("space")){
-  bullet = createSprite(displayWidth-1150,player.y-30,20,10)
-  bullet.velocityX = 20
-  
-  bulletGroup.add(bullet)
-  player.depth = bullet.depth
-  player.depth = player.depth+2
+
   player.addImage(shooter_shooting)
-  bullets = bullets-1
+  
+  //Crear sprite de bullet 
+
 }
 
 // El jugador regresa a la posición original una vez qeu se deja de presionar la barra espaciadora 
@@ -103,10 +100,7 @@ else if(keyWentUp("space")){
 }
 
 // Inicia el estado de juego (gameState) "bullet" cuando el jugador se queda sin balas. 
-if(bullets==0){
-  gameState = "bullet"
-    
-}
+
 
 // Destruye al zombi cuando una bala lo toca
 if(zombieGroup.isTouching(bulletGroup)){
@@ -142,34 +136,20 @@ drawSprites();
 // Destruye al jugador y al zombi. Muestra el mensaje en el estado de juego "lost"
 if(gameState == "lost"){
   
-  textSize(100)
-  fill("red")
-  text("You Lost ",400,400)
-  zombieGroup.destroyEach();
-  player.destroy();
+
 
 }
 
 // Destruye al jugador y al zombi. Muestra el mensaje en el estado de juego "won"
 else if(gameState == "won"){
  
-  textSize(100)
-  fill("yellow")
-  text("You Won ",400,400)
-  zombieGroup.destroyEach();
-  player.destroy();
+
 
 }
 
 // Destruye al jugador, al zombi y a las balas. Muestra el mensaje en el estado de juego "bullet"
 else if(gameState == "bullet"){
  
-  textSize(50)
-  fill("yellow")
-  text("You ran out of bullets!!!",470,410)
-  zombieGroup.destroyEach();
-  player.destroy();
-  bulletGroup.destroyEach();
 
 }
 
